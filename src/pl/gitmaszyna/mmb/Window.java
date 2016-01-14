@@ -80,8 +80,8 @@ public class Window {
     private JComboBox movementTypeComboBox = null;
     private JButton startStopButton = null;
     private MovementStrategy[] movements = {
-            new StubStrategy(),
             new CircleStrategy(),
+            new RandomStrategy(),
     };
 
     public static final int MOVE_OFFSET = 1000 / 30;    // 30 Hz

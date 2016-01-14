@@ -12,39 +12,28 @@ import java.awt.Point;
  *
  */
 public class CircleStrategy implements MovementStrategy {
-
-    private static final double ROTATION_ANGLE = Math.PI / 180;
-    private static final int CENTER_OFFSET = 10;
-    private int radius;
-    private Point currentLocation;
-
-
-    public CircleStrategy() {
-        radius = 100;
-        currentLocation = new Point(0 + CircleStrategy.CENTER_OFFSET,
-                radius + CircleStrategy.CENTER_OFFSET);
-    }
+    private int angle = 0;
+    private int radius = 100;
+    private Point currentLocation = null;
 
     @Override
     public String getName() {
-        return "Circle movement strategy";
+        return "Circle movement";
     }
 
     @Override
     public boolean makeMove() {
-        final double alfa = CircleStrategy.ROTATION_ANGLE;
-        final int cx = currentLocation.x - radius;
-        final int cy = currentLocation.y - radius;
-        final int nx = (int) (cx * Math.cos(alfa) - cy * Math.sin(alfa) + radius);
-        final int ny = (int) (cx * Math.sin(alfa) + cy * Math.cos(alfa) + radius);
-        currentLocation = new Point(nx, ny);
+        double radians = Math.toRadians(this.angle);
+        int x = (int)(this.radius * Math.cos(radians) + this.radius);
+        int y = (int)(this.radius * Math.sin(radians) + this.radius);
+        this.currentLocation = new Point(x, y);
+        this.angle = (++this.angle % 360);
 
         return true;
     }
 
     @Override
     public Point getLocation() {
-        return currentLocation;
+        return this.currentLocation;
     }
-
 }
